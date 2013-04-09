@@ -17,6 +17,7 @@ set :stages, ['testing', 'staging', 'production']
 set :default_stage, 'production'
 require 'capistrano/ext/multistage'
 
+require 'rvm/capistrano'
 require 'bundler/capistrano'
 set :bundle_flags, '--deployment --quiet --binstubs'
 

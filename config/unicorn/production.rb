@@ -17,7 +17,7 @@ timeout 30
 # We will point the upstream Nginx module to this socket later on
 listen "#{SHARED_PATH}/sockets/unicorn.socket", :backlog => 64
 
-user 'nginx', 'www-data'
+user 'nginx', 'www-user'
 
 pid "#{SHARED_PATH}/pids/unicorn.pid"
 

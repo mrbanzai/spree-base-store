@@ -17,7 +17,9 @@ timeout 30
 # We will point the upstream Nginx module to this socket later on
 listen "#{SHARED_PATH}/sockets/unicorn.socket", :backlog => 64
 
-user 'nginx', 'www-user'
+# Not needed with :unicorn_user in Capistrano config
+# thanks to capistrano-unicorn
+#user 'brandrpm', 'www-user'
 
 pid "#{SHARED_PATH}/pids/unicorn.pid"
 

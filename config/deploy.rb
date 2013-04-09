@@ -6,7 +6,6 @@ set :application, 'test.brandrpm.com'
 set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 set :keep_releases, 5
-set :use_sudo, false
 
 set :store_type, 'master'
 

@@ -9,8 +9,6 @@ set :keep_releases, 5
 
 set :store_type, 'master'
 
-# Very long, expressive path
-set(:store_type_root) { "/srv/apps/brandrpm/#{store_type}" }
 set(:deploy_to) { "#{store_type_root}/#{application}" }
 
 set :stages, ['testing', 'staging', 'production']
@@ -28,16 +26,20 @@ after 'deploy:restart', 'unicorn:restart' # app preloaded
 load 'deploy/assets'
 
 after 'deploy:setup', 'deploy:set_privileges'
+after 'deploy:setup', 'deploy:create_shared_socket_path'
 after 'deploy:restart', 'deploy:cleanup'
 after "deploy:update_code", 'deploy:secondary_symlink'
 
 namespace :deploy do
-  task :set_privileges, :roles => :app do
-    try_sudo "chmod g+s #{deploy_to}"
-    try_sudo "chown -R #{runner} #{deploy_to}"
+  task :create_shared_socket_path, :roles => [:app, :web] do
+    run "mkdir -p #{shared_path}/sockets"
   end
 
-  task :secondary_symlink, :except => { :no_release => true }, :roles => :web do
+  task :set_privileges, :roles => [:app, :web] do
+    try_sudo "chmod g+s #{deploy_to}"
+  end
+
+  task :secondary_symlink, :except => { :no_release => true }, :roles => [:app, :web] do
     run "rm -f #{release_path}/config/database.yml"
     run "ln -s #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end

@@ -7,3 +7,5 @@ set :runner, 'brandrpm'
 set :unicorn_user, 'brandrpm'
 
 set :use_sudo, true
+
+set :rvm_bin_path, '/usr/local/rvm/bin'

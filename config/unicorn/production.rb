@@ -1,8 +1,8 @@
 # Based on http://ariejan.net/2011/09/14/lighting-fast-zero-downtime-deployments-with-git-capistrano-nginx-and-unicorn/
 
 worker_processes 4
-APP_PATH '/srv/apps/brandrpm/master/test.brandrpm.com'
-SHARED_PATH "#{APP_PATH}/shared"
+APP_PATH = '/srv/apps/brandrpm/master/test.brandrpm.com'
+SHARED_PATH = "#{APP_PATH}/shared"
 working_directory "#{APP_PATH}/current"
 
 # This loads the application in the master process before forking

@@ -27,13 +27,14 @@ after 'deploy:restart', 'unicorn:restart' # app preloaded
 # Asset pipeline
 load 'deploy/assets'
 
-after 'deploy:setup', 'deploy:setgid'
+after 'deploy:setup', 'deploy:set_privileges'
 after 'deploy:restart', 'deploy:cleanup'
 after "deploy:update_code", 'deploy:secondary_symlink'
 
 namespace :deploy do
-  task :setgid, :roles => :app do
+  task :set_privileges, :roles => :app do
     try_sudo "chmod g+s #{deploy_to}"
+    try_sudo "chown -R #{runner} #{deploy_to}"
   end
 
   task :secondary_symlink, :except => { :no_release => true }, :roles => :web do

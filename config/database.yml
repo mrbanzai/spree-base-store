@@ -22,3 +22,5 @@ production:
   adapter: pg
   database: brandrpm_main
   host: localhost
+  username: brandrpm_app_main
+  password: br4nd3d?

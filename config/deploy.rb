@@ -1,25 +1,44 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :repository,  'git@github.com:mrbanzai/spree-base-store.git'
+set :scm, 'git'
+set :checkout, 'export'
+set :application, 'test.brandrpm.com'
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :ssh_options, { :forward_agent => true }
+default_run_options[:pty] = true
+set :keep_releases, 5
+set :use_sudo, false
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+set :store_type, 'master'
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
+# Very long, expressive path
+set(:store_type_root) { "/srv/apps/brandrpm/#{store_type}" }
+set(:deploy_to) { "#{store_type_root}/#{application}" }
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :stages, ['testing', 'staging', 'production']
+set :default_stage, 'production'
+require 'capistrano/ext/multistage'
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+require 'bundler/capistrano'
+set :bundle_flags, '--deployment --quiet --binstubs'
+
+require 'capistrano-unicorn'
+#after 'deploy:restart', 'unicorn:reload' # app NOT preloaded
+after 'deploy:restart', 'unicorn:restart' # app preloaded
+
+# Asset pipeline
+load 'deploy/assets'
+
+after 'deploy:setup', 'deploy:setgid'
+after 'deploy:restart', 'deploy:cleanup'
+after "deploy:update_code", 'deploy:secondary_symlink'
+
+namespace :deploy do
+  task :setgid, :roles => :app do
+    try_sudo "chmod g+s #{deploy_to}"
+  end
+
+  task :secondary_symlink, :except => { :no_release => true }, :roles => :web do
+    run "rm -f #{release_path}/config/database.yml"
+    run "ln -s #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  end
+end

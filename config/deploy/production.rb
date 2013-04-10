@@ -10,4 +10,5 @@ set :use_sudo, false
 set :bundle_cmd, '/usr/local/bin/bundle'
 
 # Very long, expressive path
-set(:store_type_root) { "/srv/apps/brandrpm/#{store_type}" }
+#set(:store_type_root) { "/srv/apps/brandrpm/#{store_type}" }
+set(:store_type_root) { "/srv/apps/brandrpm" }

@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'classy_enum'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,9 +28,6 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
-
 # Deploy with Capistrano
 gem 'capistrano'
 
@@ -42,7 +39,6 @@ gem 'spree_auth_devise', :github => 'spree/spree_auth_devise', :branch => '1-3-s
 
 group :development do
   gem 'fog', :require => false
-  gem 'capistrano-unicorn', :require => false
 end
 
 group :production do

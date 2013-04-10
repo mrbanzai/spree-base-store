@@ -22,7 +22,7 @@ test:
   <<: *base
 
 production:
-  adapter: mysql
+  adapter: postgresql
   database: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL schema name: ") %>
   username: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL user name: ") %>
   password: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL user password: ") %>

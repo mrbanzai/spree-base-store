@@ -19,10 +19,6 @@ require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 set :bundle_flags, '--deployment --quiet --binstubs'
 
-require 'capistrano-unicorn'
-#after 'deploy:restart', 'unicorn:reload' # app NOT preloaded
-after 'deploy:restart', 'unicorn:restart' # app preloaded
-
 # Asset pipeline
 load 'deploy/assets'
 

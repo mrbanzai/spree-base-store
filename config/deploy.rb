@@ -1,7 +1,7 @@
 set :repository,  'git@github.com:mrbanzai/spree-base-store.git'
 set :scm, 'git'
 set :checkout, 'export'
-set :application, 'test.brandrpm.com'
+set :application, 'testing.brandrpmstore.com'
 
 set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true

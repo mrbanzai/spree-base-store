@@ -23,6 +23,7 @@ test:
 
 production:
   adapter: postgresql
+  host: localhost
   database: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL schema name: ") %>
   username: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL user name: ") %>
   password: <%= Capistrano::CLI.ui.ask("Enter PostgreSQL user password: ") %>

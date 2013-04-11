@@ -19,14 +19,9 @@ set :bundle_flags, '--deployment --quiet --binstubs'
 load 'deploy/assets'
 
 after 'deploy:setup', 'deploy:set_privileges'
-after 'deploy:setup', 'deploy:create_shared_socket_path'
 after 'deploy:restart', 'deploy:cleanup'
 
 namespace :deploy do
-  task :create_shared_socket_path, :roles => [:app, :web] do
-    run "mkdir -p #{shared_path}/sockets"
-  end
-
   task :set_privileges, :roles => [:app, :web] do
     try_sudo "chmod g+s #{deploy_to}"
   end

@@ -8,7 +8,7 @@ default_run_options[:pty] = true
 set :keep_releases, 5
 set :group_writeable, false
 
-set :stages, ['test', 'staging', 'production']
+set :stages, ['testing', 'staging', 'production']
 set :default_stage, 'production'
 require 'capistrano/ext/multistage'
 

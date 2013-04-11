@@ -12,3 +12,6 @@ set :bundle_cmd, '/usr/local/bin/bundle'
 set :rails_env, 'production'
 
 set(:deploy_to) { "/srv/apps/brandrpm/#{rails_env}/#{application}" }
+
+after 'deploy:setup',           'db:setup'
+after 'deploy:finalize_update', 'db:symlink'

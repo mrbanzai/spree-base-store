@@ -66,6 +66,3 @@
     end
 
   end
-
-  after 'deploy:setup',           'db:setup'   unless fetch(:skip_db_setup, false)
-  after 'deploy:finalize_update', 'db:symlink'

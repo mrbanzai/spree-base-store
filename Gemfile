@@ -28,9 +28,6 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Deploy with Capistrano
-gem 'capistrano'
-
 # To use debugger
 # gem 'debugger'
 gem 'spree', '1.3.2'
@@ -39,6 +36,9 @@ gem 'spree_auth_devise', :github => 'spree/spree_auth_devise', :branch => '1-3-s
 
 group :development do
   gem 'fog', :require => false
+  gem 'capistrano-helpers', :require => false
+  # Deploy with Capistrano
+  gem 'capistrano'
 end
 
 group :production do

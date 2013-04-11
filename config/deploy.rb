@@ -1,16 +1,12 @@
 set :repository,  'git@github.com:mrbanzai/spree-base-store.git'
 set :scm, 'git'
 set :checkout, 'export'
-set :application, 'testing.brandrpmstore.com'
+set :application, 'www.brandrpmstore.com'
 
 set :ssh_options, { :forward_agent => true }
 default_run_options[:pty] = true
 set :keep_releases, 5
 set :group_writeable, false
-
-set :store_type, 'master'
-
-set(:deploy_to) { "#{store_type_root}/#{application}" }
 
 set :stages, ['testing', 'staging', 'production']
 set :default_stage, 'production'
